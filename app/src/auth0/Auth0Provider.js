@@ -15,7 +15,7 @@ export default function CustomAuth0Provider({ children }) {
       redirectUri={window.location.origin}
       onRedirectCallback={onRedirectCallback}
       audience={AUTH0.audience}
-      scope="read:users"
+      scope="email"
     >
       {children}
     </Auth0Provider>

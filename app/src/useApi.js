@@ -20,6 +20,7 @@ export const useApi = (url, options = {}) => {
           audience: AUTH0.audience,
           scope,
         });
+        console.log(accessToken);
         const res = await fetch(AUTH0.audience + url, {
           ...fetchOptions,
           headers: {

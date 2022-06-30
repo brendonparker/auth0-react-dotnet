@@ -23,7 +23,7 @@ public class WeatherForecastController : ControllerBase
     [HttpGet(Name = "GetWeatherForecast")]
     public IEnumerable<WeatherForecast> Get()
     {
-        _logger.LogInformation("GetWeather for: " + User.Identity.Name);
+        _logger.LogInformation("GetWeather for: {UserName} ({CustomerId})", User.Identity?.Name, User.CustomerId());
         return Enumerable.Range(1, 5).Select(index => new WeatherForecast
         {
             Date = DateTime.Now.AddDays(index),

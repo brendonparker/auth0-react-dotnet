@@ -23,6 +23,10 @@ builder.Services.AddAuthentication(options =>
 {
     options.Authority = "https://dev-hu-mo3x8.us.auth0.com/";
     options.Audience = "https://localhost:7081";
+    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+    {
+        NameClaimType = "https://localhost/email"
+    };
 });
 
 var app = builder.Build();
