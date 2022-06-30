@@ -1,5 +1,5 @@
 import { useApi } from "../auth0/useApi";
-export default function Page1() {
+const WeatherComponent = () => {
   const { data, loading, refresh, error } = useApi("/weatherforecast");
   const weather = data || [];
 
@@ -25,4 +25,6 @@ export default function Page1() {
       <button onClick={refresh}>Refresh</button>
     </>
   );
-}
+};
+
+export default WeatherComponent;

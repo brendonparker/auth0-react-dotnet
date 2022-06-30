@@ -5,7 +5,6 @@ import AUTH0 from "./auth0config";
 export default function CustomAuth0Provider({ children }) {
   const navigate = useNavigate();
   const onRedirectCallback = (appState) => {
-    debugger;
     navigate((appState && appState.returnTo) || window.location.pathname);
   };
   return (
@@ -15,7 +14,6 @@ export default function CustomAuth0Provider({ children }) {
       redirectUri={window.location.origin}
       onRedirectCallback={onRedirectCallback}
       audience={AUTH0.audience}
-      scope="email"
     >
       {children}
     </Auth0Provider>
