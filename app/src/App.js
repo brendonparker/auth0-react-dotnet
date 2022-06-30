@@ -1,9 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-function Page1() {
-  return <h1>Page 1</h1>;
-}
+import Page1 from "./Page1";
 
 function Page2() {
   return <h1>Page 2</h1>;
