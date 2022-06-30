@@ -1,4 +1,4 @@
-import { useApi } from "./useApi";
+import { useApi } from "../auth0/useApi";
 export default function Page1() {
   const { data, loading, refresh, error } = useApi("/weatherforecast");
   const weather = data || [];

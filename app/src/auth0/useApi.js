@@ -1,7 +1,6 @@
-// use-api.js
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import AUTH0 from "./auth0/auth0config";
+import AUTH0 from "./auth0config";
 
 export const useApi = (url, options = {}) => {
   const { getAccessTokenSilently } = useAuth0();

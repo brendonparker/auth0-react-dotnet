@@ -1,10 +1,9 @@
-import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import WeatherComponent from "./WeatherComponent";
+import WeatherComponent from "./components/WeatherComponent";
 import Auth0Provider from "./auth0/Auth0Provider";
 import ProtectedRoute from "./auth0/ProtectedRoute";
-import Profile from "./Profile";
-import NavBar from "./NavBar";
+import Profile from "./components/Profile";
+import NavBar from "./components/NavBar";
 
 function App() {
   return (
