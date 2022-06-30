@@ -4,7 +4,11 @@ import { useNavigate } from "react-router-dom";
 import AUTH0 from "./auth0config";
 import useLocal from "../hooks/useLocal";
 
-export const OrgContext = React.createContext({ org: {}, setOrg: (org) => {} });
+export const OrgContext = React.createContext({
+  org: {},
+  setOrg: (org) => {},
+  clear: () => {},
+});
 
 export default function CustomAuth0Provider({ children }) {
   const navigate = useNavigate();
@@ -14,7 +18,13 @@ export default function CustomAuth0Provider({ children }) {
   };
 
   return (
-    <OrgContext.Provider value={{ org, setOrg }}>
+    <OrgContext.Provider
+      value={{
+        org,
+        setOrg,
+        clear: () => localStorage.removeItem("demo|org_id"),
+      }}
+    >
       <Auth0Provider
         domain={AUTH0.domain}
         clientId={AUTH0.clientId}
