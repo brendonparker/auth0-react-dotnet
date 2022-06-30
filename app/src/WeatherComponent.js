@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getWeather } from "./Api";
 export default function Page1() {
-  const [weather, setWeather] = useState({});
+  const [weather, setWeather] = useState([]);
   useEffect(() => {
     (async () => {
       setWeather(await getWeather());
@@ -10,8 +10,12 @@ export default function Page1() {
 
   return (
     <>
-      <h1>Page 1</h1>
-      {JSON.stringify(weather)}
+      <h1>Weather</h1>
+      {weather.map((x) => (
+        <p key={x.date}>
+          {x.temperatureF} {x.summary}
+        </p>
+      ))}
     </>
   );
 }

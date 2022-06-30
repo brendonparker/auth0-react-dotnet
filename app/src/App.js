@@ -1,17 +1,12 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Page1 from "./Page1";
-
-function Page2() {
-  return <h1>Page 2</h1>;
-}
+import WeatherComponent from "./WeatherComponent";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Page1 />} />
-        <Route path="/page2" element={<Page2 />} />
+        <Route path="/" element={<WeatherComponent />} />
       </Routes>
     </BrowserRouter>
   );
