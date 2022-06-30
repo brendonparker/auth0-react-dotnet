@@ -9,8 +9,9 @@ const WeatherComponent = () => {
   if (error) {
     return (
       <>
-        <h1>Errored</h1>
-        <div>{error.message}</div>
+        <h1>Weather</h1>
+        <h2>Errored</h2>
+        <h3>{error.message}</h3>
       </>
     );
   }

@@ -1,3 +1,4 @@
+import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import WeatherComponent from "./components/WeatherComponent";
 import Auth0Provider from "./auth0/Auth0Provider";
