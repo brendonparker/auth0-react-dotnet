@@ -1,13 +1,19 @@
-import { useEffect, useState } from "react";
-import { getWeather } from "./Api";
+import { useApi } from "./useApi";
 export default function Page1() {
-  const [weather, setWeather] = useState([]);
-  useEffect(() => {
-    (async () => {
-      setWeather(await getWeather());
-    })();
-  }, []);
+  const { data, loading, refresh, error } = useApi("/weatherforecast");
+  const weather = data || [];
 
+  if (loading) {
+    return <h1>Loading...</h1>;
+  }
+  if (error) {
+    return (
+      <>
+        <h1>Errored</h1>
+        <div>{error.message}</div>
+      </>
+    );
+  }
   return (
     <>
       <h1>Weather</h1>
@@ -16,6 +22,7 @@ export default function Page1() {
           {x.temperatureF} {x.summary}
         </p>
       ))}
+      <button onClick={refresh}>Refresh</button>
     </>
   );
 }
