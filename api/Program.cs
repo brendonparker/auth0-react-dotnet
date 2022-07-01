@@ -1,12 +1,27 @@
+
+using api;
+using Auth0.ManagementApi;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
+
+var auth0Options = builder.Configuration.GetSection(Auth0Options.Key).Get<Auth0Options>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSingleton<IManagementConnection, HttpClientManagementConnection>();
+builder.Services.AddSingleton<Auth0ManagementApiTokenProvider>();
+builder.Services.AddTransient((sp) => {
+    var tokenProvider = sp.GetRequiredService<Auth0ManagementApiTokenProvider>();
+    var mgmtConnection = sp.GetRequiredService<IManagementConnection>();
+    var token = tokenProvider.GetTokenAsync().ConfigureAwait(false).GetAwaiter().GetResult();
+    return new ManagementApiClient(token, auth0Options.Domain, mgmtConnection);
+});
+builder.Services.AddSingleton(auth0Options);
 
 builder.Services.AddCors(opts =>
     opts.AddDefaultPolicy(policy =>
@@ -21,7 +36,7 @@ builder.Services.AddAuthentication(options =>
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer(options =>
 {
-    options.Authority = "https://dev-hu-mo3x8.us.auth0.com/";
+    options.Authority = $"https://{auth0Options.Domain}/";
     options.Audience = "https://localhost:7081";
     options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
     {

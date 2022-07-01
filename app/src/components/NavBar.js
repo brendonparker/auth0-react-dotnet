@@ -4,14 +4,17 @@ import { useAuth0 } from "@auth0/auth0-react";
 export default function NavBar() {
   const { user, loginWithRedirect, logout } = useAuth0();
   return (
-    <nav class="navbar">
-      <ul class="nav-links">
-        <div class="menu">
+    <nav className="navbar">
+      <ul className="nav-links">
+        <div className="menu">
           <li>
             <NavLink to="profile">Profile</NavLink>
           </li>
           <li>
             <NavLink to="/">Weather</NavLink>
+          </li>
+          <li>
+            <NavLink to="/users">Users</NavLink>
           </li>
           {!user ? (
             <li>
