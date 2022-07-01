@@ -50,3 +50,21 @@ export const useApi = (url, options = {}) => {
     refresh: () => setRefreshIndex(refreshIndex + 1),
   };
 };
+
+export const useApiV2 = () => {
+  const { getAccessTokenSilently } = useAuth0();
+
+  return {
+    fetch: async (url, options = {}) => {
+      const accessToken = await getAccessTokenSilently({
+        audience: AUTH0.audience,
+      });
+
+      const res = await fetch(AUTH0.audience + url, {
+        ...options,
+        headers: { ...options.headers, Authorization: `Bearer ${accessToken}` },
+      });
+      return await res.json();
+    },
+  };
+};

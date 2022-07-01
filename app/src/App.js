@@ -6,6 +6,7 @@ import ProtectedRoute from "./auth0/ProtectedRoute";
 import Profile from "./components/Profile";
 import NavBar from "./components/NavBar";
 import UsersComponent from "./components/UsersComponent";
+import NewUserComponent from "./components/NewUserComponent";
 
 function App() {
   return (
@@ -21,6 +22,10 @@ function App() {
           <Route
             path="/users"
             element={<ProtectedRoute component={UsersComponent} />}
+          />
+          <Route
+            path="/user/create"
+            element={<ProtectedRoute component={NewUserComponent} />}
           />
         </Routes>
       </Auth0Provider>
