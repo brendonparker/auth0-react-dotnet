@@ -3,12 +3,11 @@ using api;
 using Auth0.ManagementApi;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
-
 var builder = WebApplication.CreateBuilder(args);
-// Add services to the container.
 
 var auth0Options = builder.Configuration.GetSection(Auth0Options.Key).Get<Auth0Options>();
 
+// Add services to the container.
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -40,7 +39,7 @@ builder.Services.AddAuthentication(options =>
     options.Audience = "https://localhost:7081";
     options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
     {
-        NameClaimType = "https://localhost/email"
+        NameClaimType = Constants.NameClaim
     };
 });
 

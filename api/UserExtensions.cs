@@ -4,7 +4,7 @@ namespace api;
 public static class UserExtensions
 {
     public static string? CustomerId(this ClaimsPrincipal source) =>
-    source.Claims.FirstOrDefault(x => x.Type == "https://localhost/org")?.Value;
+        source.Claims.FirstOrDefault(x => x.Type == Constants.OrgClaim)?.Value;
     public static string? OrganizationId(this ClaimsPrincipal source) =>
-    source.Claims.FirstOrDefault(x => x.Type == "https://localhost/org_id")?.Value;
+        source.Claims.FirstOrDefault(x => x.Type == Constants.OrgIdClaim)?.Value;
 }
