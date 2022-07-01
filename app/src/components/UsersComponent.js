@@ -1,7 +1,14 @@
 import { NavLink } from "react-router-dom";
-import { useApi } from "../auth0/useApi";
+import { useApi, useApiV2 } from "../auth0/useApi";
 const UsersComponent = () => {
-  const { data } = useApi("/users");
+  const { data, refresh } = useApi("/users");
+  const { fetch } = useApiV2();
+  async function onDelete(userId) {
+    await fetch("/users/" + userId, {
+      method: "DELETE",
+    });
+    refresh();
+  }
   return (
     <>
       <h1>Users</h1>
@@ -11,6 +18,7 @@ const UsersComponent = () => {
           <tr>
             <th>Email</th>
             <th>Name</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -18,6 +26,9 @@ const UsersComponent = () => {
             <tr key={user.userId}>
               <td>{user.email}</td>
               <td>{user.name}</td>
+              <td>
+                <button onClick={() => onDelete(user.userId)}>Delete</button>
+              </td>
             </tr>
           ))}
         </tbody>

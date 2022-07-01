@@ -28,7 +28,7 @@ public class UsersController : ControllerBase
     public async Task<object[]> Get()
     {
         var paginationInfo = new PaginationInfo(0, 50, false);
-        var members = await _auth0Management.Organizations.GetAllMembersAsync(User.Organizationid(), paginationInfo);
+        var members = await _auth0Management.Organizations.GetAllMembersAsync(User.OrganizationId(), paginationInfo);
         return members.Select(x => new UserDTO
         {
             UserId = x.UserId,
@@ -52,9 +52,19 @@ public class UsersController : ControllerBase
         });
 
         _logger.LogInformation("Adding User to Organization");
-        await _auth0Management.Organizations.AddMembersAsync(User.Organizationid(), new OrganizationAddMembersRequest
+        await _auth0Management.Organizations.AddMembersAsync(User.OrganizationId(), new OrganizationAddMembersRequest
         {
             Members = new List<string> { newUser.UserId }
+        });
+    }
+
+    [HttpDelete("{userid}")]
+    public async Task Delete([FromRoute] string userId)
+    {
+        _logger.LogInformation("Adding User to Organization");
+        await _auth0Management.Organizations.DeleteMemberAsync(User.OrganizationId(), new OrganizationDeleteMembersRequest
+        {
+            Members = new List<string> { userId }
         });
     }
 }
