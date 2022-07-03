@@ -70,6 +70,7 @@ public class UsersController : ControllerBase
         });
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPut("{userid}/role")]
     public async Task SetRole([FromRoute] string userid, [FromBody] UpdateRoleDTO updateRole)
     {

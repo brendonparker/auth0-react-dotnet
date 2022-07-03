@@ -46,7 +46,8 @@ builder.Services.AddAuthentication(options =>
     options.Audience = "https://localhost:7081";
     options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
     {
-        NameClaimType = Constants.NameClaim
+        NameClaimType = Constants.NameClaim,
+        RoleClaimType = Constants.RolesClaim
     };
 });
 

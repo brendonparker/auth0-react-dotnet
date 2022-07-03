@@ -13,21 +13,23 @@ function App() {
       <BrowserRouter>
         <Auth0Provider>
           <NavBar />
-          <Routes>
-            <Route path="/" element={<WeatherComponent />} />
-            <Route
-              path="/profile"
-              element={<ProtectedRoute component={Profile} />}
-            />
-            <Route
-              path="/users"
-              element={<ProtectedRoute component={UsersComponent} />}
-            />
-            <Route
-              path="/user/create"
-              element={<ProtectedRoute component={NewUserComponent} />}
-            />
-          </Routes>
+          <div style={{ display: "block", position: "relative" }}>
+            <Routes>
+              <Route path="/" element={<WeatherComponent />} />
+              <Route
+                path="/profile"
+                element={<ProtectedRoute component={Profile} />}
+              />
+              <Route
+                path="/users"
+                element={<ProtectedRoute component={UsersComponent} />}
+              />
+              <Route
+                path="/user/create"
+                element={<ProtectedRoute component={NewUserComponent} />}
+              />
+            </Routes>
+          </div>
         </Auth0Provider>
       </BrowserRouter>
     </div>

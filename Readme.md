@@ -4,10 +4,14 @@ It also demonstrates plumbing for organizations features, which allow different 
 
 In order to get it working, we need to setup the following rule in Auth0 to add the email and org claims to the access tokens:
 ```
-function addEmailAndOrgToAccessToken(user, context, callback) {
+function addEmailToAccessToken(user, context, callback) {
+  const assignedRoles = (context.authorization || {}).roles;
+
+  // This rule adds the authenticated user's email address to the access token.
   context.accessToken["https://localhost/email"] = user.email;
   context.accessToken["https://localhost/org"] = context.organization.name;
-  context.accessToken["https://localhost/org_id"] = context.organization.id;
+  context.accessToken["https://localhost/roles"] = assignedRoles;
+
   return callback(null, user, context);
 }
 ```
