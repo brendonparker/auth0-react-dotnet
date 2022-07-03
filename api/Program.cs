@@ -1,4 +1,3 @@
-
 using api;
 using Auth0.ManagementApi;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -47,7 +46,7 @@ builder.Services.AddAuthentication(options =>
     options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
     {
         NameClaimType = Constants.NameClaim,
-        RoleClaimType = Constants.RolesClaim
+        RoleClaimType = Constants.RolesClaim,
     };
 });
 
