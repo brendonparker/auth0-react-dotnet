@@ -54,17 +54,22 @@ export const useApi = (url, options = {}) => {
 export const useApiV2 = () => {
   const { getAccessTokenSilently } = useAuth0();
 
+  const _fetch = async (url, options = {}) => {
+    const accessToken = await getAccessTokenSilently({
+      audience: AUTH0.audience,
+    });
+
+    return await fetch(AUTH0.audience + url, {
+      ...options,
+      headers: { ...options.headers, Authorization: `Bearer ${accessToken}` },
+    });
+  };
+
   return {
     fetch: async (url, options = {}) => {
-      const accessToken = await getAccessTokenSilently({
-        audience: AUTH0.audience,
-      });
-
-      const res = await fetch(AUTH0.audience + url, {
-        ...options,
-        headers: { ...options.headers, Authorization: `Bearer ${accessToken}` },
-      });
+      const res = await _fetch(url, options);
       return await res.json();
     },
+    fetchNoRes: _fetch,
   };
 };
