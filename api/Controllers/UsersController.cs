@@ -73,7 +73,7 @@ public class UsersController : ControllerBase
     [HttpPut("{userid}/role")]
     public async Task SetRole([FromRoute] string userid, [FromBody] UpdateRoleDTO updateRole)
     {
-        await _auth0Api.SetRolesForUser(User.OrganizationId(), userid, new[] { updateRole.Role });
+        await _auth0Api.SetRoleForUser(User.OrganizationId(), userid, updateRole.Role);
     }
 
     [HttpDelete("{userid}")]
