@@ -79,7 +79,7 @@ public class UsersController : ControllerBase
     [HttpDelete("{userid}")]
     public async Task Delete([FromRoute] string userId)
     {
-        _logger.LogInformation("Adding User to Organization");
+        _logger.LogInformation("Deleting User from Organization");
         await _auth0Management.Organizations.DeleteMemberAsync(User.OrganizationId(), new OrganizationDeleteMembersRequest
         {
             Members = new List<string> { userId }
