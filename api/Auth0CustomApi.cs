@@ -41,15 +41,15 @@ public class Auth0CustomApi : IAuth0CustomApi
 
         var existingRoles = await GetRolesForUser(orgId, userId);
 
-        await _SetRolesForUser(orgId, userId, new[] { auth0Roles[role].First().Id });
+        await RoleAdd(orgId, userId, new[] { auth0Roles[role].First().Id });
 
         if (existingRoles.Any())
         {
-            await _RemoveRolesFromUser(orgId, userId, existingRoles.Select(x => x.Id).ToArray());
+            await RoleRemove(orgId, userId, existingRoles.Select(x => x.Id).ToArray());
         }
     }
 
-    private async Task _SetRolesForUser(string orgId, string userId, string[] roles)
+    private async Task RoleAdd(string orgId, string userId, string[] roles)
     {
         var payload = new { roles };
         var message = new HttpRequestMessage(HttpMethod.Post, $"/api/v2/organizations/{orgId}/members/{userId}/roles");
@@ -57,7 +57,7 @@ public class Auth0CustomApi : IAuth0CustomApi
         await SendAsync<object>(message);
     }
 
-    private async Task _RemoveRolesFromUser(string orgId, string userId, string[] roles)
+    private async Task RoleRemove(string orgId, string userId, string[] roles)
     {
         var payload = new { roles };
         var message = new HttpRequestMessage(HttpMethod.Delete, $"/api/v2/organizations/{orgId}/members/{userId}/roles");
